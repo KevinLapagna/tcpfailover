@@ -24,13 +24,3 @@ spec:
     git:
       uri: 'https://github.com/KevinLapagna/tcpfailover'
     contextDir: /docker/haproxy/
-  triggers:
-    - type: Generic
-      generic:
-        secretReference:
-          name: tcpfailover-generic-webhook-secret
-    - type: GitHub
-      github:
-        secretReference:
-          name: tcpfailover-github-webhook-secret
-    - type: ConfigChange

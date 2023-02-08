@@ -27,7 +27,7 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: haproxy-ldap
+            name: configmap-tcpfailover
       containers:
         - name: tcpfailover
           image: >-

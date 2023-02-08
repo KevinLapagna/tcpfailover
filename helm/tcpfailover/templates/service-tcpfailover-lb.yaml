@@ -4,10 +4,14 @@ metadata:
   name: tcpfailover-lb
 spec:
   ports:
-    - name: 8636-tcp
+    - name: ldaps
       protocol: TCP
-      port: 443
+      port: 636
       targetPort: 8636
+    - name: ldap
+      protocol: TCP
+      port: 389
+      targetPort: 8389
   type: LoadBalancer
   selector:
     app: tcpfailover

@@ -1,0 +1,28 @@
+﻿kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: configmap-tcpfailover
+data:
+  haproxy.cfg: |+
+    global
+      log stdout format raw daemon notice
+    
+    defaults
+      log global
+      timeout connect 5s
+      timeout client 5s
+      timeout server 5s  
+
+    listen ldaps_failover
+      bind :8636
+      mode tcp
+      option tcp-check
+      server node1 example.com:443 check
+      server node2 example.org:443 check backup
+
+    listen ldap_failover
+      bind :8389
+      mode tcp
+      option tcp-check
+      server node1 example.com:80 check
+      server node2 example.org:80 check backup

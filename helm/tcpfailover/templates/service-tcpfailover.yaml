@@ -1,0 +1,22 @@
+﻿kind: Service
+apiVersion: v1
+metadata:
+  name: tcpfailover
+  labels:
+    app: tcpfailover
+    app.kubernetes.io/component: tcpfailover
+    app.kubernetes.io/instance: tcpfailover
+    app.kubernetes.io/name: tcpfailover
+    app.kubernetes.io/part-of: tcpfailover-app
+  annotations:
+    app.openshift.io/vcs-uri: 'https://github.com/KevinLapagna/tcpfailover'
+spec:
+  ports:
+    - name: 8636-tcp
+      protocol: TCP
+      port: 8636
+      targetPort: 8636
+  type: ClusterIP
+  selector:
+    app: tcpfailover
+    deployment: tcpfailover

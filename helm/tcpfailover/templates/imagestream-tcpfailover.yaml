@@ -1,0 +1,15 @@
+﻿kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  annotations:
+    app.openshift.io/vcs-uri: 'https://github.com/KevinLapagna/tcpfailover'
+  name: tcpfailover
+  labels:
+    app: tcpfailover
+    app.kubernetes.io/component: tcpfailover
+    app.kubernetes.io/instance: tcpfailover
+    app.kubernetes.io/name: tcpfailover
+    app.kubernetes.io/part-of: tcpfailover-app
+spec:
+  lookupPolicy:
+    local: false

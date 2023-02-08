@@ -1,0 +1,14 @@
+﻿kind: Service
+apiVersion: v1
+metadata:
+  name: tcpfailover-lb
+spec:
+  ports:
+    - name: 8636-tcp
+      protocol: TCP
+      port: 443
+      targetPort: 8636
+  type: LoadBalancer
+  selector:
+    app: tcpfailover
+    deployment: tcpfailover

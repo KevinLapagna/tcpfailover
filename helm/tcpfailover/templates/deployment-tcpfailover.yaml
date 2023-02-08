@@ -1,0 +1,41 @@
+﻿kind: Deployment
+apiVersion: apps/v1
+metadata:
+  annotations:
+    alpha.image.policy.openshift.io/resolve-names: '*'
+    app.openshift.io/vcs-uri: 'https://github.com/KevinLapagna/tcpfailover'
+    image.openshift.io/triggers: >-
+      [{"from":{"kind":"ImageStreamTag","name":"tcpfailover:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"tcpfailover\")].image","pause":"false"}]
+  name: tcpfailover
+  labels:
+    app: tcpfailover
+    app.kubernetes.io/component: tcpfailover
+    app.kubernetes.io/instance: tcpfailover
+    app.kubernetes.io/name: tcpfailover
+    app.kubernetes.io/part-of: tcpfailover-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tcpfailover
+  template:
+    metadata:
+      labels:
+        app: tcpfailover
+        deployment: tcpfailover
+    spec:
+      volumes:
+        - name: config-volume
+          configMap:
+            name: haproxy-ldap
+      containers:
+        - name: tcpfailover
+          image: >-
+            tcpfailover
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/config
+          imagePullPolicy: Always
+      restartPolicy: Always
+  strategy:
+    type: RollingUpdate

@@ -1,0 +1,36 @@
+﻿kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  annotations:
+    app.openshift.io/vcs-uri: 'https://github.com/KevinLapagna/tcpfailover'
+  name: tcpfailover
+  labels:
+    app: tcpfailover
+    app.kubernetes.io/component: tcpfailover
+    app.kubernetes.io/instance: tcpfailover
+    app.kubernetes.io/name: tcpfailover
+    app.kubernetes.io/part-of: tcpfailover-app
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'tcpfailover:latest'
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/KevinLapagna/tcpfailover'
+    contextDir: /
+  triggers:
+    - type: Generic
+      generic:
+        secretReference:
+          name: tcpfailover-generic-webhook-secret
+    - type: GitHub
+      github:
+        secretReference:
+          name: tcpfailover-github-webhook-secret
+    - type: ConfigChange

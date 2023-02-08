@@ -1,0 +1,19 @@
+﻿kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: haproxy-ldap
+data:
+  haproxy.cfg: |+
+    defaults
+            timeout connect 5s
+            timeout client 5s
+            timeout server 5s  
+
+    listen ldap_failover
+            bind :8636
+            mode tcp
+            option tcp-check
+            server node1 google.com:443 check
+            server node2 amazon.com:443 check backup
+
+

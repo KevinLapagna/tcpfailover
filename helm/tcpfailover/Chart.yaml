@@ -1,0 +1,13 @@
+apiVersion: v2
+name: tcpfailover
+description: A Helm chart for tcpfailover based on haproxy
+
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+
+maintainers:
+  - name: Kevin Lapagna
+    email: klapagna@redhat.com
+
+icon: https://global.discourse-cdn.com/business6/uploads/haproxy/original/1X/cabe36a5de752401dab65ace6cc3baefaad1c500.png

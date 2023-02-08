@@ -4,16 +4,18 @@ metadata:
   name: haproxy-ldap
 data:
   haproxy.cfg: |+
+    global
+      log stdout format raw daemon notice
+    
     defaults
-            timeout connect 5s
-            timeout client 5s
-            timeout server 5s  
+      log global
+      timeout connect 5s
+      timeout client 5s
+      timeout server 5s  
 
     listen ldap_failover
-            bind :8636
-            mode tcp
-            option tcp-check
-            server node1 google.com:443 check
-            server node2 amazon.com:443 check backup
-
-
+      bind :8636
+      mode tcp
+      option tcp-check
+      server node1 google.com:443 check
+      server node2 amazon.com:443 check backup

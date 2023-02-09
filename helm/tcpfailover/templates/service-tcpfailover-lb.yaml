@@ -1,7 +1,9 @@
 ﻿kind: Service
 apiVersion: v1
 metadata:
-  name: tcpfailover-lb
+  name: {{ include "tcpfailover.fullname" . }}-loadbalancer
+  labels:
+    {{- include "tcpfailover.labels" . | nindent 4 }}
 spec:
   ports:
     - name: ldaps
@@ -14,5 +16,4 @@ spec:
       targetPort: 8389
   type: LoadBalancer
   selector:
-    app: tcpfailover
-    deployment: tcpfailover
+    {{- include "tcpfailover.selectorLabels" . | nindent 4 }}

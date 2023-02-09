@@ -1,17 +1,13 @@
 ﻿kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: ldaps
+  name: {{ include "tcpfailover.fullname" . }}-ldaps
   labels:
-    app: tcpfailover
-    app.kubernetes.io/component: tcpfailover
-    app.kubernetes.io/instance: tcpfailover
-    app.kubernetes.io/name: tcpfailover
-    app.kubernetes.io/part-of: tcpfailover-app
+    {{- include "tcpfailover.labels" . | nindent 4 }}
 spec:
   to:
     kind: Service
-    name: tcpfailover
+    name: {{ include "tcpfailover.fullname" . }}
   port:
     targetPort: ldaps
   tls:

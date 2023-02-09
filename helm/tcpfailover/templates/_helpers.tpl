@@ -46,8 +46,11 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Selector labels
 */}}
 {{- define "tcpfailover.selectorLabels" -}}
+app: {{ include "tcpfailover.name" . }}
 app.kubernetes.io/name: {{ include "tcpfailover.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/component: {{ include "tcpfailover.name" . }}
+app.kubernetes.io/part-of: {{ include "tcpfailover.name" . }}-app
 {{- end }}
 
 {{/*

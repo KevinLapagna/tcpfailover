@@ -5,33 +5,27 @@ metadata:
     alpha.image.policy.openshift.io/resolve-names: '*'
     app.openshift.io/vcs-uri: 'https://github.com/KevinLapagna/tcpfailover'
     image.openshift.io/triggers: >-
-      [{"from":{"kind":"ImageStreamTag","name":"tcpfailover:2"},"fieldPath":"spec.template.spec.containers[?(@.name==\"tcpfailover\")].image","pause":"false"}]
-  name: tcpfailover
+      [{"from":{"kind":"ImageStreamTag","name":"{{ include "tcpfailover.fullname" . }}:2"},"fieldPath":"spec.template.spec.containers[?(@.name==\"{{ include "tcpfailover.fullname" . }}\")].image","pause":"false"}]
+  name: {{ include "tcpfailover.fullname" . }}
   labels:
-    app: tcpfailover
-    app.kubernetes.io/component: tcpfailover
-    app.kubernetes.io/instance: tcpfailover
-    app.kubernetes.io/name: tcpfailover
-    app.kubernetes.io/part-of: tcpfailover-app
+    {{- include "tcpfailover.labels" . | nindent 4 }}
 spec:
-  replicas: 1
+  replicas: {{ default 1 .Values.replicaCount }}
   selector:
     matchLabels:
-      app: tcpfailover
+      {{- include "tcpfailover.labels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: tcpfailover
-        deployment: tcpfailover
+        {{- include "tcpfailover.labels" . | nindent 8 }}
     spec:
       volumes:
         - name: config-volume
           configMap:
-            name: configmap-tcpfailover
+            name: configmap-{{ include "tcpfailover.fullname" . }}
       containers:
-        - name: tcpfailover
-          image: >-
-            tcpfailover
+        - name: {{ include "tcpfailover.fullname" . }}
+          image: {{ include "tcpfailover.fullname" . }}
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config

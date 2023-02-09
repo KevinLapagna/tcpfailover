@@ -14,7 +14,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: 'tcpfailover:latest'
+      name: 'tcpfailover:2'
   strategy:
     type: Docker
     dockerStrategy:

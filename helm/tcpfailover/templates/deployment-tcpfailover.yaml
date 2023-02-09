@@ -5,7 +5,7 @@ metadata:
     alpha.image.policy.openshift.io/resolve-names: '*'
     app.openshift.io/vcs-uri: 'https://github.com/KevinLapagna/tcpfailover'
     image.openshift.io/triggers: >-
-      [{"from":{"kind":"ImageStreamTag","name":"tcpfailover:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"tcpfailover\")].image","pause":"false"}]
+      [{"from":{"kind":"ImageStreamTag","name":"tcpfailover:2"},"fieldPath":"spec.template.spec.containers[?(@.name==\"tcpfailover\")].image","pause":"false"}]
   name: tcpfailover
   labels:
     app: tcpfailover

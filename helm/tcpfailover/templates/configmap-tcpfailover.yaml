@@ -1,7 +1,7 @@
 ﻿kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: {{ include "tcpfailover.fullname" . }}
+  name: {{ include "tcpfailover.fullname" . }}-haproxy
   labels:
     {{- include "tcpfailover.labels" . | nindent 4 }}
 data:

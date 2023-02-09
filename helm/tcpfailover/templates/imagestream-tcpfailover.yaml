@@ -2,7 +2,7 @@
 apiVersion: image.openshift.io/v1
 metadata:
   annotations:
-    app.openshift.io/vcs-uri: 'https://github.com/KevinLapagna/tcpfailover'
+    app.openshift.io/vcs-uri: '{{ .Values.vcsUri }}'
   name: {{ include "tcpfailover.fullname" . }}
   labels:
     {{- include "tcpfailover.labels" . | nindent 4 }}

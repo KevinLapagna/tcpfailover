@@ -4,6 +4,10 @@
 
 replicaCount: 1
 
+vcsUri: https://github.com/KevinLapagna/tcpfailover
+
+haproxyVersion: 2
+
 proxies:
   - name: ldaps
     internalPort: 8636

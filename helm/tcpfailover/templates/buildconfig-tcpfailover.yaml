@@ -10,7 +10,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: '{{ include "tcpfailover.fullname" . }}:2'
+      name: '{{ include "tcpfailover.fullname" . }}:{{ .Values.haproxyVersion }}'
   strategy:
     type: Docker
     dockerStrategy:

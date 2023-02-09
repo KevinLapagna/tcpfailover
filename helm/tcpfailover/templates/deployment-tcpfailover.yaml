@@ -3,9 +3,9 @@ apiVersion: apps/v1
 metadata:
   annotations:
     alpha.image.policy.openshift.io/resolve-names: '*'
-    app.openshift.io/vcs-uri: 'https://github.com/KevinLapagna/tcpfailover'
+    app.openshift.io/vcs-uri: '{{ .Values.vcsUri }}'
     image.openshift.io/triggers: >-
-      [{"from":{"kind":"ImageStreamTag","name":"{{ include "tcpfailover.fullname" . }}:2"},"fieldPath":"spec.template.spec.containers[?(@.name==\"{{ include "tcpfailover.fullname" . }}\")].image","pause":"false"}]
+      [{"from":{"kind":"ImageStreamTag","name":"{{ include "tcpfailover.fullname" . }}:{{ .Values.haproxyVersion }}"},"fieldPath":"spec.template.spec.containers[?(@.name==\"{{ include "tcpfailover.fullname" . }}\")].image","pause":"false"}]
   name: {{ include "tcpfailover.fullname" . }}
   labels:
     {{- include "tcpfailover.labels" . | nindent 4 }}
@@ -22,10 +22,10 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: configmap-{{ include "tcpfailover.fullname" . }}
+            name: {{ include "tcpfailover.fullname" . }}
       containers:
         - name: {{ include "tcpfailover.fullname" . }}
-          image: {{ include "tcpfailover.fullname" . }}
+          image: {{ include "tcpfailover.fullname" . }}:{{ .Values.haproxyVersion }}
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config

@@ -4,6 +4,8 @@ metadata:
   name: {{ include "tcpfailover.fullname" . }}-loadbalancer
   labels:
     {{- include "tcpfailover.labels" . | nindent 4 }}
+  annotations:
+    app.openshift.io/vcs-uri: '{{ .Values.vcsUri }}'
 spec:
   ports:
     {{- include "tcpfailover.servicePorts" . | indent 4 }}

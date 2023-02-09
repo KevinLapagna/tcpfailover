@@ -1,15 +1,19 @@
-﻿kind: Route
+﻿{{- range .Values.proxies }}
+{{- if .createRoute }}
+kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name: {{ include "tcpfailover.fullname" . }}-ldaps
+  name: {{ include "tcpfailover.fullname" $ }}-{{ .name }}
   labels:
-    {{- include "tcpfailover.labels" . | nindent 4 }}
+    {{- include "tcpfailover.labels" $ | nindent 4 }}
 spec:
   to:
     kind: Service
-    name: {{ include "tcpfailover.fullname" . }}
+    name: {{ include "tcpfailover.fullname" $ }}
   port:
-    targetPort: ldaps
+    targetPort: {{ .name }}
   tls:
     termination: passthrough
     insecureEdgeTerminationPolicy: None
+{{- end }}
+{{- end }}

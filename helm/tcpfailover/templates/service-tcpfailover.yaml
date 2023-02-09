@@ -8,14 +8,7 @@ metadata:
     app.openshift.io/vcs-uri: 'https://github.com/KevinLapagna/tcpfailover'
 spec:
   ports:
-  - name: ldaps
-    protocol: TCP
-    port: 636
-    targetPort: 8636
-  - name: ldap
-    protocol: TCP
-    port: 389
-    targetPort: 8389
+    {{- include "tcpfailover.servicePorts" . | indent 4 }}
   type: ClusterIP
   selector:
     {{- include "tcpfailover.selectorLabels" . | nindent 4 }}

@@ -1,7 +1,7 @@
 ﻿kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: configmap-{{ include "tcpfailover.fullname" . }}
+  name: {{ include "tcpfailover.fullname" . }}
   labels:
     {{- include "tcpfailover.labels" . | nindent 4 }}
 data:
@@ -13,18 +13,13 @@ data:
       log global
       timeout connect 5s
       timeout client 5s
-      timeout server 5s  
+      timeout server 5s
 
-    listen ldaps_failover
-      bind :8636
+    {{ range .Values.proxies }}
+    listen {{ .name }}_failover
+      bind :{{ .internalPort }}
       mode tcp
       option tcp-check
-      server node1 example.com:443 check
-      server node2 example.org:443 check backup
-
-    listen ldap_failover
-      bind :8389
-      mode tcp
-      option tcp-check
-      server node1 example.com:80 check
-      server node2 example.org:80 check backup
+      server node1 {{ .mainServer }} check
+      server node2 {{ .backupServer }} check backup
+    {{ end }}

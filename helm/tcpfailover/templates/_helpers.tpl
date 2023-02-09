@@ -54,12 +54,12 @@ app.kubernetes.io/part-of: {{ include "tcpfailover.name" . }}-app
 {{- end }}
 
 {{/*
-Create the name of the service account to use
+Service ports
 */}}
-{{- define "tcpfailover.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "tcpfailover.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
+{{- define "tcpfailover.servicePorts" -}}
+{{- range .Values.proxies }}
+- name: {{ .name }}
+  port: {{ .externalPort }}
+  targetPort: {{ .internalPort }}
 {{- end }}
 {{- end }}

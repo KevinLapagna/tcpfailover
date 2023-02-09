@@ -6,14 +6,7 @@ metadata:
     {{- include "tcpfailover.labels" . | nindent 4 }}
 spec:
   ports:
-    - name: ldaps
-      protocol: TCP
-      port: 636
-      targetPort: 8636
-    - name: ldap
-      protocol: TCP
-      port: 389
-      targetPort: 8389
+    {{- include "tcpfailover.servicePorts" . | indent 4 }}
   type: LoadBalancer
   selector:
     {{- include "tcpfailover.selectorLabels" . | nindent 4 }}

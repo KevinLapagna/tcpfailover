@@ -20,3 +20,5 @@ spec:
     git:
       uri: '{{ .Values.dockerSource.uri }}'
     contextDir: '{{ .Values.dockerSource.contextDir }}'
+  triggers:
+    - type: ConfigChange

@@ -9,9 +9,8 @@ This helm sets up
 - a Deployment with that container
 - Services and Routes to make this container accessible from the outside
 
-The defaults can be seend and changed in [values.yaml](helm/tcpfailover/values.yaml).
+The defaults can be seen and changed in [values.yaml](helm/tcpfailover/values.yaml).
 
 After cloning the repository, you can install the Helm Chart with
 
 ```# helm install --create-namespace -n <yournamespace> <yourapplicationname> helm/tcpfailover```
-

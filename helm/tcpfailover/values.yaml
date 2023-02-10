@@ -4,8 +4,6 @@
 
 replicaCount: 1
 
-vcsUri: https://github.com/KevinLapagna/tcpfailover
-
 haproxyVersion: 2
 
 proxies:
@@ -21,3 +19,7 @@ proxies:
     mainServer: example.com:80
     backupServer: example.org:80
     createRoute: false
+
+dockerSource:
+  uri: 'https://github.com/KevinLapagna/tcpfailover'
+  contextDir: '/docker/haproxy/'

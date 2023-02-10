@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "tcpfailover.labels" . | nindent 4 }}
   annotations:
-    app.openshift.io/vcs-uri: '{{ .Values.vcsUri }}'
+    app.openshift.io/vcs-uri: '{{ .Values.dockerSource.uri }}'
 spec:
   ports:
     {{- include "tcpfailover.servicePorts" . | indent 4 }}

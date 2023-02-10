@@ -1,9 +1,9 @@
 ﻿kind: BuildConfig
 apiVersion: build.openshift.io/v1
 metadata:
-  annotations:
-    app.openshift.io/vcs-uri: 'https://github.com/KevinLapagna/tcpfailover'
   name: {{ include "tcpfailover.fullname" . }}
+  annotations:
+    app.openshift.io/vcs-uri: '{{ .Values.dockerSource.uri }}'
   labels:
     {{- include "tcpfailover.labels" . | nindent 4 }}
 spec:
@@ -18,5 +18,5 @@ spec:
   source:
     type: Git
     git:
-      uri: 'https://github.com/KevinLapagna/tcpfailover'
-    contextDir: /docker/haproxy/
+      uri: '{{ .Values.dockerSource.uri }}'
+    contextDir: '{{ .Values.dockerSource.contextDir }}'

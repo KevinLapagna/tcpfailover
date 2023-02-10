@@ -6,6 +6,8 @@ metadata:
   name: {{ include "tcpfailover.fullname" $ }}-{{ .name }}
   labels:
     {{- include "tcpfailover.labels" $ | nindent 4 }}
+  annotations:
+    app.openshift.io/vcs-uri: '{{ $.Values.dockerSource.uri }}'
 spec:
   to:
     kind: Service

@@ -3,7 +3,7 @@ apiVersion: apps/v1
 metadata:
   annotations:
     alpha.image.policy.openshift.io/resolve-names: '*'
-    app.openshift.io/vcs-uri: '{{ .Values.vcsUri }}'
+    app.openshift.io/vcs-uri: '{{ .Values.dockerSource.uri }}'
     image.openshift.io/triggers: >-
       [{"from":{"kind":"ImageStreamTag","name":"{{ include "tcpfailover.fullname" . }}:{{ .Values.haproxyVersion }}"},"fieldPath":"spec.template.spec.containers[?(@.name==\"{{ include "tcpfailover.fullname" . }}\")].image","pause":"false"}]
   name: {{ include "tcpfailover.fullname" . }}
@@ -22,7 +22,7 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: {{ include "tcpfailover.fullname" . }}
+            name: {{ include "tcpfailover.fullname" . }}-haproxy
       containers:
         - name: {{ include "tcpfailover.fullname" . }}
           image: {{ include "tcpfailover.fullname" . }}:{{ .Values.haproxyVersion }}
